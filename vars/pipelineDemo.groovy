@@ -56,8 +56,9 @@ def call(def body = [:]) {
   def agentInsecureConfigArgs = imageStepConfigArgs +
     '-v /var/run/docker.sock:/var/run/docker.sock ' +
     '--user=root '
-
-  def imageTag = config.env.imageTagOverride ?: imageTag
+  if (config.env) {
+    def imageTag = config.env.imageTagOverride ?: imageTag
+  }
 
   // env, credentials, and other pipeline helpers available
   pipeline {
