@@ -223,10 +223,6 @@ def buildError(message = "[error message not supplied to method call]", stackTra
   error(message)
 }
 
-def getImageTag() {
-  return "${getGitRepositoryName()}:${getContainerTag()}"
-}
-
 def getGitRepositoryName() {
   if (env.GIT_URL == "") {
     buildError "GIT_URL value was empty at usage."
