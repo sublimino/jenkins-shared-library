@@ -1,9 +1,9 @@
 [![CircleCI](https://circleci.com/gh/hoto/jenkinsfile-loader/tree/master.svg?style=svg)](https://circleci.com/gh/hoto/jenkinsfile-loader/tree/master)
 ### Jenkins Shared Library
 
-Used for demonstration purposes in [jenkinsfile-examples](https://github.com/hoto/jenkinsfile-examples)
+Original repo can be used for demonstration purposes in [jenkinsfile-examples](https://github.com/hoto/jenkinsfile-examples)
 
-### How To Use:
+### HowTo Guide for this library:
 
 The Jenkins Shared Library is intended to be used in internal builds to standardise test, build, and push steps across similar pipelines, e.g. image build pipelines.
 The vars/ directory contains the pipeline functions which can be called in the Jenkinsfile of the consumer jobs, such as:
@@ -33,14 +33,17 @@ See a blog of this repo here:
 
 For image build pipelines, the pipeline is pipelineImageBuild and the stage options are:
 
-    gitSecrets          
-    gitCommitConformance
-    containerLint       
-    containerBuild      
-    containerScan       
-    containerPush       
+* gitSecrets: checks for leaked credentials in the code as per [gitleaks](https://github.com/zricethezav/gitleaks/releases/download/v4.3.1/gitleaks-linux-amd64)
+* gitCommitConformance: checks for conform criteria as per [conform](https://github.com/talos-systems/conform)
+* containerLint: lints the Dockerfile as per [lint](https://github.com/hadolint/hadolint)]]
+* containerBuild: builds image
+* containerScan: scans container for known vulnerabilities as per [trivy](https://github.com/aquasecurity/trivy)
+* containerPush: pushes image to registry
 
-There is an env block configurable to pass parameters, currently an imageTagOverride option.
+The env options are:
+
+* imageTagOverride: overrides the image and tag defined in the pipeline step to a string, e.g. "controlplane/demo-api:latest"
+
 An example Jenkinsfile might look like:
 
 ```
@@ -62,6 +65,11 @@ pipelineImageBuild([
   ],
 ])
 ```
+
+Instead of the boolean values for the stages, you may also add a command, such as a make command from your image repo, in the following format:
+`containerBuild: [cmd: "make build"]`
+
+If you wish to pass in parameters such as an image tag, this must be done in this command.
 
 ### Documentation
 
