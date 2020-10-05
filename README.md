@@ -33,7 +33,7 @@ See a blog of this repo here:
 
 For image build pipelines, the pipeline is pipelineImageBuild and the stage options are:
 
-* gitSecrets: checks for leaked credentials in the code as per [gitleaks](https://github.com/zricethezav/gitleaks/releases/download/v4.3.1/gitleaks-linux-amd64)
+* gitSecrets: checks for leaked credentials in the code as per [gitleaks](https://github.com/zricethezav/gitleaks)
 * gitCommitConformance: checks for conform criteria as per [conform](https://github.com/talos-systems/conform)
 * containerLint: lints the Dockerfile as per [lint](https://github.com/hadolint/hadolint)]]
 * containerBuild: builds image
