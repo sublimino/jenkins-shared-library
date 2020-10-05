@@ -3,12 +3,12 @@
 
 Original repo can be used for demonstration purposes in [jenkinsfile-examples](https://github.com/hoto/jenkinsfile-examples)
 
-### HowTo Guide for this library:
+### This Library:
 
 The Jenkins Shared Library is intended to be used in internal builds to standardise test, build, and push steps across similar pipelines, e.g. image build pipelines.
 The vars/ directory contains the pipeline functions which can be called in the Jenkinsfile of the consumer jobs, such as:
 
-* [pipelinedemo](https://github.com/controlplaneio/demo-api/blob/master/Jenkinsfile)
+* [pipelineImageBuild](https://github.com/controlplaneio/demo-api/blob/master/Jenkinsfile)
 * [pipeguard](https://github.com/controlplaneio/cp-config/blob/master/Jenkinsfile)
 
 To implement the library in a Jenkinsfile the base syntax criteria is as follows:
@@ -35,7 +35,7 @@ For image build pipelines, the pipeline is pipelineImageBuild and the stage opti
 
 * gitSecrets: checks for leaked credentials in the code as per [gitleaks](https://github.com/zricethezav/gitleaks)
 * gitCommitConformance: checks for conform criteria as per [conform](https://github.com/talos-systems/conform)
-* containerLint: lints the Dockerfile as per [lint](https://github.com/hadolint/hadolint)]]
+* containerLint: lints the Dockerfile as per [lint](https://github.com/hadolint/hadolint)
 * containerBuild: builds image
 * containerScan: scans container for known vulnerabilities as per [trivy](https://github.com/aquasecurity/trivy)
 * containerPush: pushes image to registry
@@ -70,6 +70,13 @@ Instead of the boolean values for the stages, you may also add a command, such a
 `containerBuild: [cmd: "make build"]`
 
 If you wish to pass in parameters such as an image tag, this must be done in this command.
+
+### Adding a new pipeline
+
+Pipelines live in the /vars directory and are called by their filename by the consumer Jenkinsfiles. 
+Pipelines call build steps which live in the src/com/mycompany/jenkins directory.
+When adding a new pipeline, review these directories for existing steps.
+//TODO add testing doc
 
 ### Documentation
 
